@@ -1,37 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="FR-fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye - photographe </title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Fisheye - photographe</title>
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="/">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" />
+      </a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button
+          class="contact_button"
+          onclick="displayModal()"
+          aria-label="Contact me"
+          id="modal-open-button"
+        >
+          Contactez-moi
+        </button>
+      </div>
+
+      <div class="photograph-gallery">
+        <div class="photograph-gallery__header">
+          <span>Trier par</span>
+          <div class="photograph-gallery__sorter select-box">
+            <div class="select-box__current" tabindex="0">
+              <span class="select-box__icon fa fa-solid fa-chevron-up"></span>
+            </div>
+            <ul class="select-box__list"></ul>
+          </div>
+        </div>
+        <div class="photograph-gallery__content"></div>
       </div>
     </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+
+    <div id="carousel_modal" role="dialog">
+      <div class="modal modal--carousel" aria-hidden="true" aria-describedby="modal-title">
+        <header>
+          <img
+            src="assets/icons/close-red.svg"
+            onclick="closeCarousel()"
+            id="carousel-close-button"
+            aria-label="Close carousel"
+            tabindex="0"
+            alt="Close carousel"
+          />
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
+
+        <div class="carousel-content">
+          <span
+            class="fa fa-solid fa-chevron-left carousel-previous"
+            aria-label="Previous image"
+            tabindex="0"
+          ></span>
+
+          <img id="carousel-current-image" src="" alt="" />
+
+          <span
+            class="fa fa-solid fa-chevron-right carousel-next"
+            aria-label="Next image"
+            tabindex="0"
+          ></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="contact_modal" role="dialog">
+      <div class="modal" aria-hidden="true" aria-describedby="modal-title">
+        <header>
+          <h2 id="modal-title">Contactez-moi</h2>
+          <img
+            src="assets/icons/close.svg"
+            onclick="closeModal()"
+            id="modal-close-button"
+            aria-label="Close contact modal"
+            tabindex="0"
+            alt="Close contact modal"
+          />
+        </header>
+        <form id="contact-form">
+          <div>
+            <label for="contact-firstname">Prénom</label>
+            <input type="text" name="contact-firstname" id="contact-firstname" />
+
+            <label for="contact-lastname">Nom</label>
+            <input type="text" name="contact-lastname" id="contact-lastname" />
+
+            <label for="contact-email">Email</label>
+            <input type="email" name="contact-email" id="contact-email" />
+
+            <label for="contact-message">Votre message</label>
+            <textarea name="contact-message" id="contact-message" cols="30" rows="3"></textarea>
+          </div>
           <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
+        </form>
+      </div>
+    </div>
+
+    <script src="scripts/factories/photographer.js"></script>
+    <script src="scripts/factories/media.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/utils/carousel.js"></script>
+    <script src="/scripts/utils/sorter.js"></script>
   </body>
 </html>
