@@ -1,3 +1,7 @@
+let sort = 'likeAsc';
+const getCurrentSort = () => sort;
+
+// get photographer's data based on id in url params
 const getPhotographer = async () => {
   const searchParams = new URLSearchParams(window.location.search);
 
@@ -20,6 +24,7 @@ const getPhotographer = async () => {
   return photographer[0];
 };
 
+// get medias associated to a photographer
 const getGallery = async () => {
   const searchParams = new URLSearchParams(window.location.search);
 
@@ -61,10 +66,6 @@ const sortingMethods = {
   titleDesc: (a, b) => (a.title < b.title ? 1 : -1),
 };
 
-let sort = 'likeAsc';
-
-const getCurrentSort = () => sort;
-
 const displayGallery = (medias) => {
   const photographGallery = document.querySelector('.photograph-gallery__content');
 
@@ -95,54 +96,58 @@ const displaySorter = () => {
   const options = {
     likesAsc: {
       sort: 'likeAsc',
-      label: 'Sort by likes ascending',
+      label: 'Trier par likes (croissant)',
+      checked: true,
     },
     likesDesc: {
       sort: 'likeDesc',
-      label: 'Sort by likes descending',
+      label: 'Trier par likes (décroissant)',
     },
     dateAsc: {
       sort: 'dateAsc',
-      label: 'Sort by date ascending',
+      label: 'Trier par date (croissant)',
     },
     dateDesc: {
       sort: 'dateDesc',
-      label: 'Sort by date descending',
+      label: 'Trier par date (décroissant)',
     },
     titleAsc: {
       sort: 'titleAsc',
-      label: 'Sort by title ascending',
+      label: 'Trier par nom (croissant)',
     },
     titleDesc: {
       sort: 'titleDesc',
-      label: 'Sort by title descending',
+      label: 'Trier par nom (décroissant)',
     },
   };
 
   const sorter = document.querySelector('.select-box__current');
   const listContainer = document.querySelector('.select-box__list');
 
+  // initialize the inputs and labels for the sorter
   for (let option in options) {
     const currentOption = options[option];
 
+    // the radio input
     const inputTag = document.createElement('input');
     inputTag.setAttribute('type', 'radio');
     inputTag.setAttribute('id', `sorter--${currentOption.sort}`);
     inputTag.setAttribute('value', currentOption.sort);
     inputTag.setAttribute('name', 'sorter-select');
-    inputTag.setAttribute('checked', false);
+    if (currentOption.checked) inputTag.setAttribute('checked', true);
     inputTag.classList.add('select-box__input');
 
+    // diplayed sort label
     const textTag = document.createElement('p');
     textTag.classList.add('select-box__input-text');
     textTag.innerText = currentOption.label;
-
     const boxValueTag = document.createElement('div');
     boxValueTag.classList.add('select-box__value');
     boxValueTag.append(inputTag, textTag);
 
     sorter.appendChild(boxValueTag);
 
+    // the labels for each option
     const labelTag = document.createElement('label');
     labelTag.classList.add('select-box__option');
     labelTag.setAttribute('for', `sorter--${currentOption.sort}`);
@@ -163,6 +168,8 @@ const displaySorter = () => {
       e.target.blur();
       document.querySelector('.carousel-opener').focus();
     });
+
+    // the list of options
     const listTag = document.createElement('li');
     listTag.appendChild(labelTag);
 
