@@ -107,7 +107,7 @@
 .modal {
   border-radius: 5px;
   background-color: #db8876;
-  width: 50%;
+  width: min(70%, 62rem);
   display: flex;
   flex-direction: column;
   align-items: center;
